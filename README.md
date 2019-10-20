@@ -3,7 +3,7 @@ Just a nice persistence trick to confuse DFIR investigation.
 Uses NtSetValueKey native API to create a hidden (null terminated) registry key.
 This works by adding a null byte in front of the UNICODE_STRING key valuename.
 
-More info about this technique can be found in the following paper:
+More info about this technique can be found in the following whitepaper:
 https://github.com/ewhitehats/InvisiblePersistence/blob/master/InvisibleRegValues_Whitepaper.pdf
 
 The tool uses the following registry path in which it creates the hidden run key:
