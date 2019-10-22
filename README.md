@@ -13,7 +13,13 @@ The tool uses the following registry path in which it creates the hidden run key
 To Create hidden registry (Run) key:
 
 ```
-SharpHide.exe action=create keyvalue="C:\Windows\Temp\Bla.exe arg1 arg2" 
+SharpHide.exe action=create keyvalue="C:\Windows\Temp\Bla.exe" 
+```
+
+To Create a hidden registry (Run) key with parameters:
+
+```
+SharpHide.exe action=create keyvalue="C:\Windows\Temp\Bla.exe" arguments="arg1 arg2"
 ```
 
 Delete hidden registry (Run) key:
