@@ -180,7 +180,16 @@ namespace SharpHide
                 }
             }
             else {
-                UNICODE_STRING ValueData = new UNICODE_STRING("\"" + arguments["keyvalue"] + "\" " + arguments["arguments"]);
+                UNICODE_STRING ValueData;
+                if (arguments.ContainsKey("arguments"))
+                {
+                    ValueData = new UNICODE_STRING("\"" + arguments["keyvalue"] + "\" " + arguments["arguments"]);
+                }
+                else
+                {
+                    ValueData = new UNICODE_STRING("\"" + arguments["keyvalue"] + "\"");
+                }
+                  
                 Status = NtSetValueKey(regKeyHandle, ValueNamePtr, 0, RegistryKeyType.REG_SZ, ValueData.buffer, ValueData.MaximumLength);
                 if (Status.Equals(STATUS_SUCCESS)) {
                     Console.WriteLine("[+] Key successfully created.");
